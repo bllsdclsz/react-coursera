@@ -2,6 +2,7 @@ import React from 'react';
 import { Row, Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem, Button, Modal, ModalHeader, ModalBody, Label} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
+import { Loading } from './LoadingComponent';
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -115,6 +116,24 @@ const minLength = (len) => (val) => val && (val.length >= len);
     }
 
     const Dishdetail = (props) => {
+        if(props.isLoading){
+            return(
+                <div className="container">
+                    <div className="row">
+                        <Loading />
+                    </div>
+                </div>
+            );
+        }
+        else if(props.errMess){
+            return(
+                <div className="container">
+                    <div className="row">
+                        <h4>{props.errMess}</h4>
+                    </div>
+                </div>
+            );
+        }
         if(props.dish!=null){
             return (
                 <div className="container">
